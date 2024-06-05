@@ -1,0 +1,32 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+  
+.roleOptionButton {
+    width: 200px;
+    height: 200px;
+    border-radius: 1px;
+    color: red;
+}
+  
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+}
+  
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+    border: 1px solid gray;
+    background-color: white;
+}
+  
+.textError::placeholder {
+    color: red;
+  }
+  
