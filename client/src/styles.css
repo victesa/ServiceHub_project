@@ -13,7 +13,14 @@
 body {
     margin: 0; /* Reset default margin */
     padding: 0; /* Reset default padding */
+    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
+
+body::-webkit-scrollbar {
+    display: none; /* WebKit (Safari, Chrome) */
+  }
+
   
 .header {
     position: sticky;

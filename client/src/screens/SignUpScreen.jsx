@@ -1,6 +1,6 @@
 import React from "react";
 import SignUpForm from "../components/SignUpForm";
-import Header from "../components/Header";
+import {BasicHeaderServiceHub} from "../components/Header";
 
 const signInScreenDiv = {
   justifyContent: "center",
@@ -12,7 +12,7 @@ const signInScreenDiv = {
 function SignUpScreen() {
   return (
     <div style={{ overflow: "hidden" }}>
-      <Header />
+      <BasicHeaderServiceHub />
       <div style={signInScreenDiv}>
         <SignUpForm />
       </div>

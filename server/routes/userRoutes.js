@@ -1,11 +1,12 @@
 const express = require('express');
+const userController = require('../controllers/userController');
 const validateUser = require('../middleware/validateUser');
-const userController = require('../controllers/userController')
 const router = express.Router();
 
-// Define the route handler for user registration under the '/api' namespace
+router.post('/signIn', userController.signInUserController);
+router.post('/request-password-reset', userController.requestPasswordReset);
+router.post('/reset-password',validateUser, userController.resetPassword);
 router.post('/register', validateUser, userController.registerUser);
-
-router.post('/signIn', userController.signInUserController)
+router.get('/verify-email', userController.verifyUserEmail);
 
 module.exports = router;

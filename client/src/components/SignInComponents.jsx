@@ -67,14 +67,15 @@ function SignInButton() {
 }
 
 
-function CreateAccountWhiteBg() {
+function CreateAccountWhiteBg({onClick}) {
   const [isHovered, setIsHovered] = React.useState(false);
   return (
     <div>
       
       <button style={isHovered ? { ...CreateAccountWhiteBgStyle, ...CreateAccountWhiteBgStyleHover } : CreateAccountWhiteBgStyle}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}>
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={onClick}>
         <b>Create Account</b>
       </button>
     </div>

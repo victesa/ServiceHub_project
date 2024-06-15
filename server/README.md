@@ -6,7 +6,7 @@ This repository contains the server-side code for the Service Hub project. The s
 
 To set up the project locally, follow these steps after cloning or forking:
 
-### npm install express node cors nodemon body-parser
+### npm install express node cors nodemon body-parser bycrypt express-mysql-session mysql2
 This will install the relevant dependencies needed for the working of the server
 
 ### nom run dev

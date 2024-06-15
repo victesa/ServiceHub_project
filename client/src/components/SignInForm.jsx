@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import OptionalDiv, { PasswordTextFieldInput, EmailTextFieldInput, SignInButton, CreateAccountWhiteBg } from "./SignInComponents";
 
 const mainDivStyle = {
@@ -20,6 +21,13 @@ function SignInForm() {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
+  const navigate = useNavigate(); // Corrected: useNavigate should be invoked as a function
+
+  const navigateToRoleOptionScreen = () => {
+    navigate("/roleOptionScreen"); // Corrected: navigate to roleOptionScreen route
+  };
+
+
   const signIn = async (event) => {
     event.preventDefault();
 
@@ -27,8 +35,6 @@ function SignInForm() {
       emailAddress,
       userPassword
     };
-
-    console.log(signInJson);
 
     try {
       const response = await fetch("http://localhost:5000/auth/signIn", {
@@ -55,6 +61,8 @@ function SignInForm() {
       } else {
         setEmailHasError(false);
         setPasswordHasError(false);
+
+        navigate("/HomeAuthenticatedScreen")
       }
     } catch (error) {
       console.log(error);
@@ -89,7 +97,7 @@ function SignInForm() {
           padding: "0px 0px 5px 0px",
         }}
       >
-        <a href="" style={{ color: "green" }}>Forgot Password</a>
+        <a href="/passwordReset" style={{ color: "green" }}>Forgot Password</a>
       </div>
 
       <span style={{ padding: "30px" }}></span>
@@ -100,8 +108,8 @@ function SignInForm() {
 
       <span style={{ padding: "30px" }}></span>
 
-      <CreateAccountWhiteBg />
-
+      <CreateAccountWhiteBg onClick={navigateToRoleOptionScreen} /> {/* Corrected: Removed `navigate()` invocation */}
+      
       <span style={{ padding: "30px" }}></span>
     </form>
   );

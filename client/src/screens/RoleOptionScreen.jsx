@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles.css";
-import Header from "../components/Header";
+import {BasicHeaderServiceHub} from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import RoleOptionButtons from "../components/RoleOptionButton"; // Import the button component here
 
@@ -47,18 +47,22 @@ function RoleOptionScreen() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/SignUpScreen');
+    var role = "cleint"
+    if(choiceSelected === 0){
+      role = "client"
+    }else{
+      role = "Service Provider"
+    
+    }
+    const route = "/SignUpScreen?role=" + role
+    navigate(route);
   };
-
-  const navigateToSignInScreen = () =>{
-    navigate('/SignInScreen')
-  }
 
 
   const [choiceSelected, setChoiceSelected] = React.useState(null);
   return (
     <div style={mainDivStyle}>
-      <Header />
+      <BasicHeaderServiceHub />
 
       <span style={{ padding: "10px" }} />
 

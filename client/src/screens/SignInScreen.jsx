@@ -1,6 +1,6 @@
 import React from "react";
 import SignInForm from "../components/SignInForm";
-import Header from "../components/Header";
+import {BasicHeaderServiceHub} from "../components/Header";
 import { useNavigate } from "react-router-dom";
 
 const signInScreenDiv = {
@@ -12,11 +12,9 @@ const signInScreenDiv = {
 };
 
 function SignInScreen() {
-  
-
   return (
     <div style={{ overflow: "hidden" }}>
-      <Header />
+      <BasicHeaderServiceHub />
       <div style={signInScreenDiv}>
         <SignInForm />
       </div>
