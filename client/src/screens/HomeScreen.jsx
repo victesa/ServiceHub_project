@@ -2,6 +2,8 @@ import HomeScreenHeader from "../components/Header"
 import homeScreenPic from "../images/homeScreenPic.png"
 import "../robotoFonts.css"
 import TrustHomeSection from "../components/trustHomeSection"
+import PopularServicesHome from "../components/popularServicesHome";
+import { useNavigate } from "react-router-dom";
 
 const heroDivStyle = {
     display: "flex",
@@ -44,6 +46,11 @@ const rightHeroDivStyle = {
 }
 
 function HomeScreen(){
+    const navigate = useNavigate()
+
+    const navigateToRoleOptionScreen = ()=>{
+        navigate("/roleOptionScreen")
+    }
     return(
     <div style={heroDivStyle}>
         <style>{webkitScrollbarStyle}</style>
@@ -55,7 +62,8 @@ function HomeScreen(){
                     Forget about insecurities when hiring or looking for work. Security is enhanced here</p>
                 <button style={{color: "white", 
                 backgroundColor: "green",
-                 borderRadius: "14px", border: "1px solid green", marginRight: "30px", height: "35px", width: "250px", fontSize: "15px"}}>
+                 borderRadius: "14px", border: "1px solid green", marginRight: "30px", height: "35px", width: "250px", fontSize: "15px"}}
+                 onClick={navigateToRoleOptionScreen}>
                     Get Started
                 </button>
             </div>
@@ -64,6 +72,8 @@ function HomeScreen(){
                 <img src={homeScreenPic}/>
             </div>
         </div>
+
+        <PopularServicesHome/>
 
         <TrustHomeSection/>
     </div>

@@ -6,6 +6,8 @@ export const logoStyle = {
     color: "green",
     fontSize: "20px",
     padding: "0px 0px 0px 10px",
+    cursor: "pointer",
+    maxWidth: "100%"
 };
 
 // Optional Div Style

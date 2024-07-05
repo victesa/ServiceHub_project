@@ -3,8 +3,6 @@ const db = require('../config/db');
 const crypto = require("crypto")
 const { sendVerificationEmail, sendResetEmail } =  require("../utils/sendEmailVerification")
 const bcrypt = require('bcrypt');
-const validateUser = require('../middleware/validateUser');
-
 
 function registerUser(req, res) {
     const userData = req.body;
@@ -81,17 +79,39 @@ function initializeSessionOnSignUp(req, res, userId, username) {
   req.session.authenticated = true;
   req.session.userId = userId;
   req.session.username = username;
-  res.status(200).json({ message: "Email Verified Successfully. Redirecting you to the home page" });
+
+  // Query database to get user's role based on userId
+  db.query("SELECT role FROM users WHERE userId = ?", [userId], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (result.length > 0) {
+      const userRole = result[0].role; // Assuming 'role' is a field in your users table
+      req.session.role = userRole;
+
+      if (userRole === "Service Provider") {
+        res.status(200).json({ message: "Redirect to Profile Setup" , userId: userId, role: "Service Provider"});
+      } else {
+        res.status(200).json({ message: "Redirect to Home" });
+      }
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  });
 }
 
 
-function initializeSessionOnSignIn(req, res, userId) {
+function initializeSessionOnSignIn(req, res, user) {
   req.session.authenticated = true;
-  req.session.userId = userId;
+  req.session.userId = user.userId;
+  req.session.role = user.role
 
+  console.log(req.session)
   res.status(200).json({
     message: "User signed in successfully",
-    user: userId
+    role: req.session.role
   });
 }
 
@@ -113,10 +133,18 @@ function signInUserController(req, res) {
       });
     }
 
-    initializeSessionOnSignIn(req, res, result.user)
+    req.session.authenticated = true;
+    req.session.userId = result.user.userId;
+    req.session.role = result.user.role;
 
+    console.log(req.session);
+    res.status(200).json({
+      message: "User signed in successfully",
+      role: req.session.role
+    });
   });
 }
+
 
 function requestPasswordReset(req, res) {
     const { email } = req.body;

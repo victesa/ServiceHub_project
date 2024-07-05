@@ -21,48 +21,55 @@ function SignInForm() {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
-  const navigate = useNavigate(); // Corrected: useNavigate should be invoked as a function
+  const navigate = useNavigate();
 
-  const navigateToRoleOptionScreen = () => {
-    navigate("/roleOptionScreen"); // Corrected: navigate to roleOptionScreen route
+  const navigateToRoleOptionScreen = (event) => {
+    event.preventDefault(); // Prevent default form submission
+    navigate("/roleOptionScreen");
   };
 
-
   const signIn = async (event) => {
-    event.preventDefault();
-
+    event.preventDefault(); // Prevent default form submission
+  
     const signInJson = {
       emailAddress,
       userPassword
     };
-
+  
     try {
       const response = await fetch("http://localhost:5000/auth/signIn", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(signInJson)
+        body: JSON.stringify(signInJson),
+        credentials: 'include' // Include credentials in request
       });
-
+  
+      const data = await response.json(); // Await and use the JSON response
+  
       if (!response.ok) {
-        const errorMessage = await response.json();
-        console.log(errorMessage);
-
-        if (errorMessage.type === "email") {
-          setEmailErrorMessage(errorMessage.msg);
+        console.log(data);
+  
+        if (data.type === "email") {
+          setEmailErrorMessage(data.msg);
           setEmailHasError(true);
           setPasswordHasError(false);
         } else {
-          setPasswordErrorMessage(errorMessage.msg);
+          setPasswordErrorMessage(data.msg);
           setPasswordHasError(true);
           setEmailHasError(false);
         }
       } else {
         setEmailHasError(false);
         setPasswordHasError(false);
-
-        navigate("/HomeAuthenticatedScreen")
+        console.log(data.role);
+  
+        if (data.role === "Client") {
+          navigate('/ClientHomeScreen');
+        } else {
+          navigate('/ServiceProviderScreen');
+        }
       }
     } catch (error) {
       console.log(error);
@@ -70,6 +77,7 @@ function SignInForm() {
       setPasswordHasError(false);
     }
   };
+  
 
   return (
     <form style={mainDivStyle} onSubmit={signIn}>
@@ -108,8 +116,8 @@ function SignInForm() {
 
       <span style={{ padding: "30px" }}></span>
 
-      <CreateAccountWhiteBg onClick={navigateToRoleOptionScreen} /> {/* Corrected: Removed `navigate()` invocation */}
-      
+      <CreateAccountWhiteBg onClick={navigateToRoleOptionScreen} />
+
       <span style={{ padding: "30px" }}></span>
     </form>
   );

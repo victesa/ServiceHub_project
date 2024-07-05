@@ -11,7 +11,6 @@ function VerifyEmailScreen() {
 
   useEffect(() => {
     if (token) {
-      setMessage("Please check your email for the verification link.");
       fetch(`http://localhost:5000/auth/verify-email?token=${token}`, {
         method: 'GET',
         credentials: 'include', // Include credentials in request
@@ -22,9 +21,17 @@ function VerifyEmailScreen() {
             setMessage(data.error);
             console.log(data.error); // Logging the error message
           } else {
-            setMessage('Email verified successfully! Redirecting to home...');
+            console.log(data.userId)
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('role', data.role);
+            setMessage('Email verified successfully! Redirecting...');
             setTimeout(() => {
-              navigate('/HomeAuthenticatedScreen'); // Redirect to home screen after 3 seconds
+              if (data.message === "Redirect to Profile Setup") {
+                navigate('/ProfileSetupScreen'); // Redirect to profile setup screen
+              } else {
+                navigate('/ClientHomeScreen'); // Redirect to home screen
+              }
             }, 3000);
           }
         })
