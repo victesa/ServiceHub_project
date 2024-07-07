@@ -1,19 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignUpScreen from './screens/SignUpScreen';
-import SignInScreen from './screens/SignInScreen';
-import HomeScreen from './screens/HomeScreen';
-import ResetPasswordScreen from './screens/ResetPasswordScreen';
-import PasswordResetScreen from './screens/PasswordResetScreen';
-import VerifyEmailScreen from './screens/VerifyEmailScreen';
-import RoleOptionScreen from './screens/RoleOptionScreen';
-import EmailVerificationLinkScreen from './screens/EmailVerificationLinkScreen';
-import ProtectedRoute from './components/AuthProtection'; // Correct the import path
-import RedirectIfAuthenticated from './components/RedirectedIfAuthenticated'; // New component
-import ProfileSetUpScreen from './screens/clientScreen/ProfileSetupScreen';
-import ServiceProviderHomeScreen from './screens/clientScreen/ServiceProviderHomeScreen';
-import ClientHomeScreen from './screens/ClientHomeScreen';
-import AccountBalanceScreen from './screens/AccountBalanceScreen';
+import SignUpScreen from './common/screens/SignUpScreen';
+import SignInScreen from './common/screens/SignInScreen';
+import HomeScreen from './common/screens/HomeScreen';
+import ResetPasswordScreen from './common/screens/ResetPasswordScreen';
+import PasswordResetScreen from './common/screens/PasswordResetScreen';
+import VerifyEmailScreen from './common/screens/VerifyEmailScreen';
+import RoleOptionScreen from './common/screens/RoleOptionScreen';
+import EmailVerificationLinkScreen from './common/screens/EmailVerificationLinkScreen';
+import ProtectedRoute from './common/components/AuthProtection'; // Correct the import path
+import RedirectIfAuthenticated from './common/components/RedirectedIfAuthenticated'; // New component
+import ProfileSetUpScreen from './ServiceProvider/screens/ProfileSetupScreen';
+import ServiceProviderHomeScreen from './ServiceProvider/screens/ServiceProviderHomeScreen';
+import ClientHomeScreen from './common/screens/ClientHomeScreen';
 
 function App() {
   return (
